@@ -11,7 +11,6 @@
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
-        <!-- Styles -->
     </head>
     <body>
         <meta name="auto_height" content="true"/>
@@ -121,5 +120,30 @@
         <br>
         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
         </fb:login-button>
+
+        <br>
+        <div id="appleid-signin"></div>
+
+        <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+        <script type="text/javascript">
+            AppleID.auth.init({
+                clientId : 'com.depatu.stagingid',
+                scope : 'email',
+                redirectURI : 'https://staging.depatu.com/api/auth/apple-callback',
+                state : 'origin:web',
+                nonce : '[NONCE]',
+                usePopup : true
+            });
+
+            document.addEventListener('AppleIDSignInOnSuccess', (event) => {
+                // Handle successful response.
+                console.log(event.detail.data);
+            });
+
+            document.addEventListener('AppleIDSignInOnFailure', (event) => {
+                // Handle error.
+                console.log(event.detail.error);
+            });
+        </script>
     </body>
 </html>
